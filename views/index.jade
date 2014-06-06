@@ -1,0 +1,18 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(type='text/javascript', src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
+    script(type='text/javascript', src='/socket.io/socket.io.js')
+    script(type='text/javascript', src='/javascripts/client.js')
+  body
+    h1= title
+    form#frm(name="frm" method="get" action="/")
+      p キーワード
+        input(type="text" id="keyword" name="keyword" value= keyword)
+        に関する
+        input(type="submit" id="search" name="search" value="tweetを集める")
+    ul
+      div#tweets
