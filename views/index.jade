@@ -9,7 +9,7 @@ html
     script(type='text/javascript', src='/javascripts/client.js')
   body
     h1= title
-    form#frm(name="frm" method="get" action="/")
+    form#keyword_form(name="frm" method="get" action="/")
       p キーワード
         input(type="text" id="keyword" name="keyword" value= keyword)
         に関する
