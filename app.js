@@ -22,8 +22,8 @@ var twit = new twitter({
   access_token_key:'',
   access_token_secret:'',
   proxy: { // Proxy settings
-    host: 'proxy.kdc.fujixerox.co.jp', // Defaults to 'localhost'
-    port: 8080, // Defaults to 80
+    host: '', // Defaults to 'localhost'
+    port: , // Defaults to 80
   }
 });
 
