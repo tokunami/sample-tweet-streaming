@@ -17,10 +17,14 @@ var io = io.listen(server);
 var twitter = require('ntwitter');
 
 var twit = new twitter({
-  consumer_key:'aaaaa',
-  consumer_secret:'aaaaa',
-  access_token_key:'aaaaa',
-  access_token_secret:'aaaaa'
+  consumer_key:'',
+  consumer_secret:'',
+  access_token_key:'',
+  access_token_secret:'',
+  proxy: { // Proxy settings
+    host: 'proxy.kdc.fujixerox.co.jp', // Defaults to 'localhost'
+    port: 8080, // Defaults to 80
+  }
 });
 
 // all environments
@@ -51,9 +55,9 @@ var keyword ="ガンダム";
 
 app.get('/', function(req, res){
   //リクエストからキーワードを取得する
-//  if (req.query.keyword){
-//    keyword = req.query.keyword;
-//  }
+  if (req.query.keyword){
+    keyword = req.query.keyword;
+  }
   res.render('index', {
     keyword: keyword,
     title: 'tokunamiの部屋'
@@ -65,22 +69,24 @@ io.sockets.on('connection', function(socket){
 
   socket.on('keyword post', function(keyword){
   //Twitter Streaming APIの呼び出し
-    console.log('keyword post受信');
+    console.log('keyword post受信', keyword);
     twit.stream('statuses/filter', {'track': keyword}, function(stream){
+      console.log('twit.stream start');
       stream.on('data', function (data){
-        io.sockets.emit('message', data.text);
+        console.log('here');
+//        io.sockets.emit('message', data.text);
         console.log(keyword);
       });
-      stream.on('end', function(response){
+//      stream.on('end', function(response){
       //Handle a disconnection
-        console.log('切断されました');
-      });
-      stream.on('destroy', function(response){
+//        console.log('切断されました');
+//      });
+//      stream.on('destroy', function(response){
       //Handle a 'silent' disconnection from Twitter, no end/error event fired
-        console.log('破棄されました');
-      });
+//        console.log('破棄されました');
+//      });
       // Disconnect stream after five seconds
-      setTimeout(stream.destroy, 5000);
+//      setTimeout(stream.destroy, 5000);
     });
   });
 });

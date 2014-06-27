@@ -10,6 +10,7 @@ $(function(){
     var keyword = $('#keyword').val();
     if(keyword){
       socket.emit('keyword post',keyword);
+      console.log('keyword post発火');
 
     }
   });
